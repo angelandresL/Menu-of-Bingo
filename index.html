@@ -46,6 +46,61 @@
             opacity: 0.8;
         }
         
+        /* Carrusel de recomendaciones */
+        .carousel {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            background-color: #222;
+            padding: 20px 0;
+        }
+        
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            text-align: center;
+        }
+        
+        .carousel-item img {
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .carousel-item h3 {
+            color: #fff;
+            margin-top: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+        
+        .carousel-control.prev {
+            left: 10px;
+        }
+        
+        .carousel-control.next {
+            right: 10px;
+        }
+        
         nav {
             background-color: #333;
             position: sticky;
@@ -72,10 +127,76 @@
             background-color: #e74c3c;
         }
         
+        /* Sidebar */
+        .content-wrapper {
+            display: flex;
+            position: relative;
+        }
+        
+        .sidebar {
+            width: 0;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+        
+        .sidebar.open {
+            width: 250px;
+        }
+        
+        .sidebar-toggle {
+            position: fixed;
+            left: 15px;
+            top: 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+        
+        .sidebar a:hover {
+            background-color: #e74c3c;
+        }
+        
+        .sidebar a.subcategory-link {
+            padding-left: 30px;
+            font-size: 14px;
+            color: #ddd;
+        }
+        
+        .sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 25px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 1rem;
+            transition: margin-left 0.3s;
+            flex: 1;
         }
         
         .category-section {
@@ -100,6 +221,15 @@
             color: #fff;
             padding: 0.8rem 1.5rem;
             font-size: 1.3rem;
+        }
+        
+        /* Estilo para subcategorías de tercer nivel */
+        .third-level-title {
+            color: #333;
+            padding: 0.6rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
         }
         
         .menu-items {
@@ -154,20 +284,45 @@
         }
         
         .pizza-size {
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
         
         .salsas-title {
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             margin-top: 0.5rem;
             color: #e74c3c;
         }
         
         .salsas-list {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-style: italic;
             color: #666;
+        }
+        
+        /* Bebidas sin imágenes */
+        .drink-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .drink-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .drink-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .drink-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 0.3rem;
         }
         
         footer {
@@ -189,6 +344,32 @@
             text-decoration: none;
         }
         
+        /* Botón para volver arriba */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #e74c3c;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
         @media (max-width: 768px) {
             .main-categories {
                 flex-direction: column;
@@ -208,6 +389,10 @@
                 margin-right: 0;
                 margin-bottom: 1rem;
             }
+            
+            .sidebar.open {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -220,6 +405,30 @@
         <p class="subtitle">Cocina auténtica • Desde 2022</p>
     </header>
     
+    <!-- Carrusel de platos recomendados -->
+    <div class="carousel">
+        <button class="carousel-control prev">&lt;</button>
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <img src="img/hamburguesa.jpg" alt="Hamburguesa Especial">
+                <h3>Hamburguesa Especial</h3>
+            </div>
+            <div class="carousel-item">
+                <img src="img/pizza-mozzarella.jpg" alt="Pizza Mozzarella">
+                <h3>Pizza Italiana</h3>
+            </div>
+            <div class="carousel-item">
+                <img src="img/sorrentinos.jpg" alt="Sorrentinos">
+                <h3>Sorrentinos Caseros</h3>
+            </div>
+            <div class="carousel-item">
+                <img src="img/ensalada-cesar.jpg" alt="Ensalada César">
+                <h3>Ensalada César</h3>
+            </div>
+        </div>
+        <button class="carousel-control next">&gt;</button>
+    </div>
+    
     <nav>
         <ul class="main-categories" id="mainCategories">
             <li data-category="carta-principal" class="active">CARTA PRINCIPAL</li>
@@ -228,749 +437,311 @@
         </ul>
     </nav>
     
-    <div class="container">
-        <!-- CARTA PRINCIPAL SECTION -->
-        <div class="category-section active" id="carta-principal">
-            <div class="subcategory">
-                <h2 class="subcategory-title">ENTRADAS</h2>
-                <div class="menu-items">
-                    <div class="subcategory">
-                        <h3 class="subcategory-title">EMPANADAS</h3>
-                        <div class="menu-items">
-                            <div class="menu-item">
-                                <img src="img/empanada-jamon.jpg" alt="Empanada de Jamón y Queso" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-title">
-                                        <span>JAMÓN Y QUESO</span>
-                                        <span class="item-price">$2.500</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="menu-item">
-                                <img src="img/empanada-carne.jpg" alt="Empanada de Carne" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-title">
-                                        <span>CARNE</span>
-                                        <span class="item-price">$2.500</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="subcategory">
-                        <h3 class="subcategory-title">TABLA DE FIAMBRES</h3>
-                        <div class="menu-items">
-                            <div class="menu-item">
-                                <img src="img/tabla-fiambres.jpg" alt="Tabla de Fiambres" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-title">
-                                        <span>PARA 2 PERSONAS</span>
-                                        <span class="item-price">$16.000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="menu-item">
-                                <img src="img/tabla-fiambres-grande.jpg" alt="Tabla de Fiambres Grande" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-title">
-                                        <span>PARA 4 PERSONAS</span>
-                                        <span class="item-price">$29.000</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="content-wrapper">
+        <!-- Sidebar para navegación rápida -->
+        <button class="sidebar-toggle" id="sidebarToggle">Menú ☰</button>
+        <div class="sidebar" id="sidebar">
+            <span class="close-btn" id="closeSidebar">&times;</span>
+            <a href="#" class="category-link" data-category="carta-principal">CARTA PRINCIPAL</a>
+            <a href="#entradas" class="subcategory-link">ENTRADAS</a>
+            <a href="#ensaladas" class="subcategory-link">ENSALADAS</a>
+            <a href="#pizzas" class="subcategory-link">PIZZAS</a>
+            <a href="#pastas" class="subcategory-link">PASTAS</a>
+            <a href="#platos-calientes" class="subcategory-link">PLATOS CALIENTES</a>
             
-            <div class="subcategory">
-                <h2 class="subcategory-title">ENSALADAS</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/ensalada-cesar.jpg" alt="Ensalada César" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>ENSALADA CÉSAR</span>
-                                <span class="item-price">$8.000</span>
-                            </div>
-                            <p class="item-description">(LECHUGA, POLLO, QUESO RALLADO, CHERRY, SALSA CÉSAR Y CRUTONES)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/ensalada-chef.jpg" alt="Ensalada del Chef" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>ENSALADA DEL CHEF</span>
-                                <span class="item-price">$8.000</span>
-                            </div>
-                            <p class="item-description">(LECHUGA, RÚCULA, ZANAHORIA, QUESO RALLADO, JAMÓN, CHERRY Y HUEVO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/ensalada-mixta.jpg" alt="Ensalada Mixta" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>ENSALADA MIXTA</span>
-                                <span class="item-price">$9.000</span>
-                            </div>
-                            <p class="item-description">(LECHUGA, TOMATE, CEBOLLA, ZANAHORIA, HUEVO)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a href="#" class="category-link" data-category="bebidas">BEBIDAS</a>
+            <a href="#sin-alcohol" class="subcategory-link">SIN ALCOHOL</a>
+            <a href="#vinos" class="subcategory-link">VINOS</a>
+            <a href="#cerveza" class="subcategory-link">CERVEZA</a>
+            <a href="#cocteleria" class="subcategory-link">COCTELERÍA</a>
+            <a href="#whisky" class="subcategory-link">WHISKY</a>
+            <a href="#champagne" class="subcategory-link">CHAMPAGNE</a>
             
-            <div class="subcategory">
-                <h2 class="subcategory-title">PIZZAS</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/pizza-mozzarella.jpg" alt="Pizza Mozzarella" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>MOZZARELLA</span>
-                                <div class="pizza-prices">
-                                    <span class="pizza-size">CHICA: <span class="item-price">$10.000</span></span>
-                                    <span class="pizza-size">GRANDE: <span class="item-price">$16.000</span></span>
-                                </div>
-                            </div>
-                            <p class="item-description">(MOZZARELLA, ACEITUNAS, ORÉGANO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/pizza-napolitana.jpg" alt="Pizza Napolitana" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>NAPOLITANA</span>
-                                <div class="pizza-prices">
-                                    <span class="pizza-size">CHICA: <span class="item-price">$12.000</span></span>
-                                    <span class="pizza-size">GRANDE: <span class="item-price">$18.000</span></span>
-                                </div>
-                            </div>
-                            <p class="item-description">(MOZZARELLA, JAMÓN COCIDO, TOMATE, AJO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/pizza-panceta.jpg" alt="Pizza Panceta con Huevo" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>PANCETA CON HUEVO</span>
-                                <span class="item-price">$20.000</span>
-                            </div>
-                            <p class="item-description">(MOZZARELLA, PANCETA, HUEVO, MORRÓN ASADO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/pizza-rucula.jpg" alt="Pizza Rúcula y Jamón Crudo" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>RÚCULA Y JAMÓN CRUDO</span>
-                                <span class="item-price">$20.000</span>
-                            </div>
-                            <p class="item-description">(MOZZARELLA, RÚCULA, CHERRY, JAMÓN CRUDO, QUESO PARMESANO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/pizza-cebolla.jpg" alt="Pizza Tres Cebolla" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>TRES CEBOLLA</span>
-                                <span class="item-price">$18.000</span>
-                            </div>
-                            <p class="item-description">(MOZZARELLA, CEBOLLA BLANCA, MORADA Y VERDEO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/pizza-sin-tacc.jpg" alt="Pizza Sin TACC" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>PIZZA SIN TACC</span>
-                                <span class="item-price">$12.000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">PASTAS</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/sorrentinos.jpg" alt="Sorrentinos" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>SORRENTINOS</span>
-                                <span class="item-price">$15.000</span>
-                            </div>
-                            <p class="salsas-title">Salsas disponibles:</p>
-                            <p class="salsas-list">Escarparo, Bologñesa, Cuatro Quesos, Mixta</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/ravioles.jpg" alt="Ravioles" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>RAVIOLES</span>
-                                <span class="item-price">$14.000</span>
-                            </div>
-                            <p class="salsas-title">Salsas disponibles:</p>
-                            <p class="salsas-list">Escarparo, Bologñesa, Cuatro Quesos, Mixta</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/canelones.jpg" alt="Canelones" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CANELONES (POLLO/CARNE)</span>
-                                <span class="item-price">$14.000</span>
-                            </div>
-                            <p class="salsas-title">Salsas disponibles:</p>
-                            <p class="salsas-list">Escarparo, Bologñesa, Cuatro Quesos, Mixta</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/noquis.jpg" alt="Ñoquis" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>ÑOQUIS</span>
-                                <span class="item-price">$12.000</span>
-                            </div>
-                            <p class="salsas-title">Salsas disponibles:</p>
-                            <p class="salsas-list">Escarparo, Bologñesa, Cuatro Quesos, Mixta</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">PLATOS CALIENTES</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/hamburguesa.jpg" alt="Hamburguesa" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>HAMBURGUESA</span>
-                                <span class="item-price">$11.000</span>
-                            </div>
-                            <p class="item-description">(CARNE, CHEDDAR, HUEVO, LECHUGA, TOMATE, PEPINILLO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/milanesa.jpg" alt="Milanesa" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>MILANESA (POLLO/CARNE)</span>
-                                <span class="item-price">$15.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/milanesa-napolitana.jpg" alt="Milanesa Napolitana" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>MILANESA NAPOLITANA</span>
-                                <span class="item-price">$16.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/papas-fritas.jpg" alt="Papas Fritas" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>PAPAS FRITAS</span>
-                                <span class="item-price">$5.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/papas-bin-baires.jpg" alt="Papas Bin Baires" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>PAPAS BIN BAIRES</span>
-                                <span class="item-price">$10.000</span>
-                            </div>
-                            <p class="item-description">(CREMA AL VERDEO, PANCETA, CHEDDAR, QUESO PARMESANO)</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/rabas.jpg" alt="Rabas" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>RABAS</span>
-                                <span class="item-price">$16.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="subcategory">
-                        <h3 class="subcategory-title">PLANCHA</h3>
-                        <div class="menu-items">
-                            <div class="menu-item">
-                                <img src="img/pollo-plancha.jpg" alt="Pollo a la Plancha" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-title">
-                                        <span>POLLO A LA PLANCHA</span>
-                                        <span class="item-price">$12.000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="menu-item">
-                                <img src="img/bife-plancha.jpg" alt="Bife a la Plancha" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-title">
-                                        <span>BIFE A LA PLANCHA</span>
-                                        <span class="item-price">$16.000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="menu-item">
-                                <img src="img/bondiola-plancha.jpg" alt="Bondiola a la Plancha" class="item-image">
-                                <div class="item-details">
-                                    <div class="item-title">
-                                        <span>BONDIOLA A LA PLANCHA</span>
-                                        <span class="item-price">$14.000</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a href="#" class="category-link" data-category="postres">POSTRES</a>
+            <a href="#budines" class="subcategory-link">BUDINES</a>
         </div>
-        
-        <!-- BEBIDAS SECTION -->
-        <div class="category-section" id="bebidas">
-            <div class="subcategory">
-                <h2 class="subcategory-title">BEBIDAS SIN ALCOHOL</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/agua.jpg" alt="Agua" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>AGUA ECO SIN GAS</span>
-                                <span class="item-price">$3.000</span>
+    
+        <div class="container">
+            <!-- CARTA PRINCIPAL SECTION -->
+            <div class="category-section active" id="carta-principal">
+                <div class="subcategory" id="entradas">
+                    <h2 class="subcategory-title">ENTRADAS</h2>
+                    <div class="menu-items">
+                        <div class="subcategory">
+                            <h3 class="third-level-title">EMPANADAS</h3>
+                            <div class="menu-items">
+                                <div class="menu-item">
+                                    <img src="img/empanada-jamon.jpg" alt="Empanada de Jamón y Queso" class="item-image">
+                                    <div class="item-details">
+                                        <div class="item-title">
+                                            <span>JAMÓN Y QUESO</span>
+                                            <span class="item-price">$2.500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item">
+                                    <img src="img/empanada-carne.jpg" alt="Empanada de Carne" class="item-image">
+                                    <div class="item-details">
+                                        <div class="item-title">
+                                            <span>CARNE</span>
+                                            <span class="item-price">$2.500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="subcategory">
+                            <h3 class="third-level-title">TABLA DE FIAMBRES</h3>
+                            <div class="menu-items">
+                                <div class="menu-item">
+                                    <img src="img/tabla-fiambres.jpg" alt="Tabla de Fiambres" class="item-image">
+                                    <div class="item-details">
+                                        <div class="item-title">
+                                            <span>PARA 2 PERSONAS</span>
+                                            <span class="item-price">$16.000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item">
+                                    <img src="img/tabla-fiambres-grande.jpg" alt="Tabla de Fiambres Grande" class="item-image">
+                                    <div class="item-details">
+                                        <div class="item-title">
+                                            <span>PARA 4 PERSONAS</span>
+                                            <span class="item-price">$29.000</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <img src="img/agua-gas.jpg" alt="Agua con Gas" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>AGUA ECO CON GAS</span>
-                                <span class="item-price">$3.000</span>
+                </div>
+                
+                <div class="subcategory" id="ensaladas">
+                    <h2 class="subcategory-title">ENSALADAS</h2>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <img src="img/ensalada-cesar.jpg" alt="Ensalada César" class="item-image">
+                            <div class="item-details">
+                                <div class="item-title">
+                                    <span>ENSALADA CÉSAR</span>
+                                    <span class="item-price">$8.000</span>
+                                </div>
+                                <p class="item-description">(LECHUGA, POLLO, QUESO RALLADO, CHERRY, SALSA CÉSAR Y CRUTONES)</p>
                             </div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <img src="img/gaseosas.jpg" alt="Gaseosas" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>GASEOSAS</span>
-                                <span class="item-price">$3.000</span>
-                            </div>
-                            <p class="item-description">PEPSI, PEPSI ZERO, 7UP, 7UP ZERO, MIRINDA NARANJA, H2O LIMONETO, PASO DE LOS TOROS POMELO</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/tonica.jpg" alt="Agua Tónica" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>TÓNICA LATA</span>
-                                <span class="item-price">$1.500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/levite.jpg" alt="Levite" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>LEVITE</span>
-                                <span class="item-price">$3.500</span>
-                            </div>
-                            <p class="item-description">NARANJA / POMELO / MANZANA / PERA</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/speed.jpg" alt="Speed" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>SPEED</span>
-                                <span class="item-price">$3.500</span>
+                </div>
+                
+                <div class="subcategory" id="pizzas">
+                    <h2 class="subcategory-title">PIZZAS</h2>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <img src="img/pizza-mozzarella.jpg" alt="Pizza Mozzarella" class="item-image">
+                            <div class="item-details">
+                                <div class="item-title">
+                                    <span>MOZZARELLA</span>
+                                    <div class="pizza-prices">
+                                        <span class="pizza-size">CHICA: <span class="item-price">$10.000</span></span>
+                                        <span class="pizza-size">GRANDE: <span class="item-price">$16.000</span></span>
+                                    </div>
+                                </div>
+                                <p class="item-description">(MOZZARELLA, ACEITUNAS, ORÉGANO)</p>
                             </div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <img src="img/jugo-naranja.jpg" alt="Jugo de Naranja" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>JUGO DE NARANJA</span>
-                                <span class="item-price">$4.000</span>
+                </div>
+                
+                <div class="subcategory" id="pastas">
+                    <h2 class="subcategory-title">PASTAS</h2>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <img src="img/sorrentinos.jpg" alt="Sorrentinos" class="item-image">
+                            <div class="item-details">
+                                <div class="item-title">
+                                    <span>SORRENTINOS</span>
+                                    <span class="item-price">$15.000</span>
+                                </div>
+                                <p class="salsas-title">Salsas disponibles:</p>
+                                <p class="salsas-list">Escarparo, Bologñesa, Cuatro Quesos, Mixta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subcategory" id="platos-calientes">
+                    <h2 class="subcategory-title">PLATOS CALIENTES</h2>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <img src="img/hamburguesa.jpg" alt="Hamburguesa" class="item-image">
+                            <div class="item-details">
+                                <div class="item-title">
+                                    <span>HAMBURGUESA</span>
+                                    <span class="item-price">$11.000</span>
+                                </div>
+                                <p class="item-description">(CARNE, CHEDDAR, HUEVO, LECHUGA, TOMATE, PEPINILLO)</p>
+                                <p class="item-description"><strong>*Incluye PAPA FRITAS</strong></p>
+                            </div>
+                        </div>          
+                        <div class="subcategory">
+                            <h3 class="third-level-title">PLANCHA</h3>
+                            <div class="menu-items">
+                                <div class="menu-item">
+                                    <img src="img/pollo-plancha.jpg" alt="Pollo a la Plancha" class="item-image">
+                                    <div class="item-details">
+                                        <div class="item-title">
+                                            <span>POLLO A LA PLANCHA</span>
+                                            <span class="item-price">$12.000</span>
+                                        </div>
+                                        <p class="item-description"><strong>*Incluye PAPA FRITAS o ENSALADA a elección</strong></p>
+                                        <p class="salsas-title">Salsas disponibles:</p>
+                                        <p class="salsas-list">Verdeo, Mostaza, Cuatro Quesos, Champignon</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="subcategory">
-                <h2 class="subcategory-title">VINOS</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/vino-tinto.jpg" alt="Vinos Tintos" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>VINOS TINTOS</span>
+            <!-- BEBIDAS SECTION -->
+            <div class="category-section" id="bebidas">
+                <div class="subcategory" id="sin-alcohol">
+                    <h2 class="subcategory-title">BEBIDAS SIN ALCOHOL</h2>
+                    <div class="menu-items">
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                AGUA ECO SIN GAS
+                                <span class="drink-price">$3.000</span>
                             </div>
-                            <p class="item-description">LOPEZ CHICO - $6.000</p>
-                            <p class="item-description">VASCO VIEJO CHICO - $5.500</p>
-                            <p class="item-description">SANTA JULIA CHICO - $6.800</p>
-                            <p class="item-description">LOPEZ - $8.000</p>
-                            <p class="item-description">VASCO VIEJO - $7.500</p>
-                            <p class="item-description">VIÑAS DE BALBO - $8.000</p>
-                            <p class="item-description">SANTA JULIA MALBEC - $9.000</p>
-                            <p class="item-description">SANTA JULIA TINTO DULCE - $9.800</p>
-                            <p class="item-description">DON VALENTIN - $7.800</p>
-                            <p class="item-description">TRUMPETER - $15.000</p>
-                            <p class="item-description">RUTINI - $38.000</p>
                         </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/vino-blanco.jpg" alt="Vinos Blancos" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>VINOS BLANCOS</span>
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                AGUA ECO CON GAS
+                                <span class="drink-price">$3.000</span>
                             </div>
-                            <p class="item-description">TRAFUL CHICO - $5.500</p>
-                            <p class="item-description">VASCO VIEJO CHICO - $5.500</p>
-                            <p class="item-description">VASCO VIEJO - $7.500</p>
-                            <p class="item-description">VIÑA DE BALBO - $8.000</p>
-                            <p class="item-description">SANTA JULIA CHININ DULCE - $10.000</p>
-                            <p class="item-description">RUTINI SAUVIGNON - $28.000</p>
+                        </div>
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                GASEOSAS
+                                <span class="drink-price">$3.000</span>
+                            </div>
+                            <p class="drink-description">PEPSI, PEPSI ZERO, 7UP, 7UP ZERO, MIRINDA NARANJA, H2O LIMONETO, PASO DE LOS TOROS POMELO</p>
+                        </div>
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                TÓNICA LATA
+                                <span class="drink-price">$1.500</span>
+                            </div>
+                        </div>
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                LEVITE
+                                <span class="drink-price">$3.500</span>
+                            </div>
+                            <p class="drink-description">NARANJA / POMELO / MANZANA / PERA</p>
+                        </div>
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                SPEED
+                                <span class="drink-price">$3.500</span>
+                            </div>
+                        </div>
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                JUGO DE NARANJA
+                                <span class="drink-price">$4.000</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">CERVEZA</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/cerveza-litro.jpg" alt="Cervezas Litro" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CERVEZAS LITRO</span>
-                            </div>
-                            <p class="item-description">QUILMES - $8.000</p>
-                            <p class="item-description">BRAHMA - $8.000</p>
-                            <p class="item-description">STELLA - $9.000</p>
-                            <p class="item-description">HEINIKEN - $9.000</p>
+                
+                <div class="subcategory" id="vinos">
+                    <h2 class="subcategory-title">VINOS</h2>
+                    <div class="menu-items">
+                        <div class="drink-item">
+                            <div class="drink-title">VINOS TINTOS</div>
+                            <p class="drink-description">LOPEZ CHICO - <span class="drink-price">$6.000</span></p>
+                            <p class="drink-description">VASCO VIEJO CHICO - <span class="drink-price">$5.500</span></p>
                         </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/cerveza-lata.jpg" alt="Cervezas Lata" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CERVEZAS LATA/PORRON</span>
-                            </div>
-                            <p class="item-description">QUILMES LATA - $4.500</p>
-                            <p class="item-description">QUILMES LATA STOUT - $4.500</p>
-                            <p class="item-description">QUILMES LATA SIN ALCOHOL - $4.500</p>
-                            <p class="item-description">STELLA LATA - $5.000</p>
-                            <p class="item-description">STELLA PORRON - $4.500</p>
-                            <p class="item-description">HEINIKEN LATA - $5.000
-                            <p class="item-description">HEINIKEN LATA - $5.000</p>
-                            <p class="item-description">HEINIKEN LATA SIN ALCOHOL - $5.000</p>
-                            <p class="item-description">CORONA PORRON - $5.000</p>
+                        <div class="drink-item">
+                            <div class="drink-title">VINOS BLANCOS</div>
+                            <p class="drink-description">TRAFUL CHICO - <span class="drink-price">$5.500</span></p>
+                            <p class="drink-description">VASCO VIEJO CHICO - <span class="drink-price">$5.500</span></p>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">COCTELERÍA</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/fernet.jpg" alt="Fernet" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>FERNET COLA</span>
-                                <span class="item-price">$6.000</span>
+                
+                <div class="subcategory" id="cerveza">
+                    <h2 class="subcategory-title">CERVEZA</h2>
+                    <div class="menu-items">
+                        <div class="drink-item">
+                            <div class="drink-title">CERVEZAS LITRO</div>
+                            <p class="drink-description">QUILMES - <span class="drink-price">$8.000</span></p>
+                            <p class="drink-description">BRAHMA - <span class="drink-price">$8.000</span></p>
+                        </div>
+                        <div class="drink-item">
+                            <div class="drink-title">CERVEZAS LATA/PORRON</div>
+                            <p class="drink-description">QUILMES LATA - <span class="drink-price">$4.500</span></p>
+                            <p class="drink-description">QUILMES LATA STOUT - <span class="drink-price">$4.500</span></p>
+                        </div>
+                        <div class="drink-item">
+                            <div class="drink-title">CERVEZAS TIRADAS</div>
+                            <p class="drink-description">QUILMES CHOP - <span class="drink-price">$5.000</span></p>
+                            <p class="drink-description">STELLA CHOP - <span class="drink-price">$6.000</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subcategory" id="cocteleria">
+                    <h2 class="subcategory-title">COCTELERÍA</h2>
+                    <div class="menu-items">
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                FERNET COLA
+                                <span class="drink-price">$6.000</span>
                             </div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <img src="img/gancia.jpg" alt="Gancia" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>GANCIA CON SPRITE</span>
-                                <span class="item-price">$6.000</span>
+                </div>
+                
+                <div class="subcategory" id="whisky">
+                    <h2 class="subcategory-title">WHISKY (MEDIDA)</h2>
+                    <div class="menu-items">
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                BLENDERS
+                                <span class="drink-price">$4.000</span>
                             </div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <img src="img/gancia-pomelo.jpg" alt="Gancia Pomelo" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>GANCIA POMELO/BATIDO</span>
-                                <span class="item-price">$6.500</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/gin-tonic.jpg" alt="Gin Tonic" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>GIN TONIC/POMELO</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/cuba-libre.jpg" alt="Cuba Libre" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CUBA LIBRE</span>
-                                <span class="item-price">$6.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/whiscola.jpg" alt="Whiscola" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>WHISCOLA</span>
-                                <span class="item-price">$6.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/licor-speed.jpg" alt="Licor con Speed" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>LICOR CON SPEED</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/vodka-naranja.jpg" alt="Vodka con Naranja" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>VODKA CON NARANJA</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/vodka-speed.jpg" alt="Vodka con Speed" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>VODKA CON SPEED</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/tequila.jpg" alt="Tequila" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>TEQUILA</span>
-                                <span class="item-price">$4.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/campari.jpg" alt="Campari con Naranja" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CAMPARI CON NARANJA</span>
-                                <span class="item-price">$7.000</span>
+                </div>
+                
+                <div class="subcategory" id="champagne">
+                    <h2 class="subcategory-title">CHAMPAGNE</h2>
+                    <div class="menu-items">
+                        <div class="drink-item">
+                            <div class="drink-title">
+                                NOVECENTO
+                                <span class="drink-price">$9.000</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="subcategory">
-                <h2 class="subcategory-title">WHISKY (MEDIDA)</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/whisky.jpg" alt="Whisky" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>WHISKY</span>
-                            </div>
-                            <p class="item-description">BLENDERS - $4.000</p>
-                            <p class="item-description">REDLABEL - $7.000</p>
-                            <p class="item-description">J&B - $8.000</p>
-                            <p class="item-description">CHIVAS - $9.000</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">CHAMPAGNE</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/champagne.jpg" alt="Champagne" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CHAMPAGNE</span>
-                            </div>
-                            <p class="item-description">NOVECENTO - $9.000</p>
-                            <p class="item-description">SALENTEIN - $23.000</p>
-                            <p class="item-description">CHANDON - $29.000</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- POSTRES SECTION -->
-        <div class="category-section" id="postres">
-            <div class="subcategory">
-                <h2 class="subcategory-title">BUDINES</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/budin-chocolate.jpg" alt="Budín de Chocolate" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>BUDÍN DE CHOCOLATE</span>
-                                <span class="item-price">$5.800</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/budin-limon.jpg" alt="Budín de Limón" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>BUDÍN DE LIMÓN</span>
-                                <span class="item-price">$5.800</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/budin-naranja.jpg" alt="Budín de Naranja" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>BUDÍN DE NARANJA</span>
-                                <span class="item-price">$5.800</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">DULCES</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/alfajor-maicena.jpg" alt="Alfajor de Maicena" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>ALFAJOR DE MAICENA</span>
-                                <span class="item-price">$2.800</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/flan.jpg" alt="Flan" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>FLAN (con dulce de leche)</span>
-                                <span class="item-price">$4.500</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">TARTAS</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/tarta-coco.jpg" alt="Tarta de Coco" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>TARTA DE COCO</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/tarta-cabsha.jpg" alt="Tarta Cabsha" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>TARTA CABSHA</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/tarta-durazno.jpg" alt="Tarta de Durazno" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>TARTA DE DURAZNO</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/lemon-pie.jpg" alt="Lemon Pie" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>LEMON PIE</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subcategory">
-                <h2 class="subcategory-title">ESPECIALIDADES</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="img/tiramisu.jpg" alt="Tiramisú" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>TIRAMISÚ</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/chocoflan.jpg" alt="Chocoflan" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CHOCOFLAN</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/brownie.jpg" alt="Brownie" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>BROWNIE</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/cheesecake.jpg" alt="Cheesecake" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>CHEESECAKE</span>
-                                <span class="item-price">$7.000</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="img/rogel.jpg" alt="Rogel" class="item-image">
-                        <div class="item-details">
-                            <div class="item-title">
-                                <span>ROGEL</span>
-                                <span class="item-price">$7.000</span>
+            <!-- POSTRES SECTION -->
+            <div class="category-section" id="postres">
+                <div class="subcategory" id="budines">
+                    <h2 class="subcategory-title">BUDINES</h2>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <img src="img/budin-chocolate.jpg" alt="Budín de Chocolate" class="item-image">
+                            <div class="item-details">
+                                <div class="item-title">
+                                    <span>BUDÍN DE CHOCOLATE</span>
+                                    <span class="item-price">$5.800</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -978,6 +749,9 @@
             </div>
         </div>
     </div>
+    
+    <!-- Botón para volver arriba -->
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
     
     <footer>
         <p>© 2025 Restaurante Nombre - Todos los derechos reservados</p>
@@ -1007,7 +781,159 @@
                     // Show corresponding section
                     const categoryId = this.getAttribute('data-category');
                     document.getElementById(categoryId).classList.add('active');
+                    
+                    // Scroll to top when changing categories
+                    window.scrollTo({
+                        top: document.querySelector('nav').offsetTop,
+                        behavior: 'smooth'
+                    });
                 });
+            });
+            
+            // Sidebar functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const closeSidebar = document.getElementById('closeSidebar');
+            
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+closeSidebar.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+            });
+            
+            // Links categorías en sidebar
+            const categoryLinks = document.querySelectorAll('.sidebar .category-link');
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Activar categoría correspondiente
+                    const categoryId = this.getAttribute('data-category');
+                    
+                    // Actualizar tabs activos
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector(`[data-category="${categoryId}"]`).classList.add('active');
+                    
+                    // Mostrar sección correspondiente
+                    categorySections.forEach(s => s.classList.remove('active'));
+                    document.getElementById(categoryId).classList.add('active');
+                    
+                    // Cerrar sidebar
+                    sidebar.classList.remove('open');
+                    
+                    // Scroll al inicio de la sección
+                    window.scrollTo({
+                        top: document.querySelector('nav').offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Links subcategorías en sidebar
+            const subcategoryLinks = document.querySelectorAll('.sidebar .subcategory-link');
+            subcategoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Extraer ID de subcategoría del href
+                    const subcategoryId = this.getAttribute('href').substring(1);
+                    const subcategoryElement = document.getElementById(subcategoryId);
+                    
+                    // Determinar la categoría principal que contiene esta subcategoría
+                    let parentSection = subcategoryElement.closest('.category-section');
+                    let categoryId = parentSection.id;
+                    
+                    // Actualizar tabs activos
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector(`[data-category="${categoryId}"]`).classList.add('active');
+                    
+                    // Mostrar sección correspondiente
+                    categorySections.forEach(s => s.classList.remove('active'));
+                    parentSection.classList.add('active');
+                    
+                    // Cerrar sidebar
+                    sidebar.classList.remove('open');
+                    
+                    // Desplazamiento suave hasta la subcategoría
+                    setTimeout(() => {
+                        subcategoryElement.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                });
+            });
+            
+            // Funcionalidad del botón Volver Arriba
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Carrusel de recomendaciones
+            const carousel = document.querySelector('.carousel-inner');
+            const items = document.querySelectorAll('.carousel-item');
+            const prevButton = document.querySelector('.carousel-control.prev');
+            const nextButton = document.querySelector('.carousel-control.next');
+            let currentIndex = 0;
+            
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+            
+            prevButton.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = items.length - 1; // Ir al último si estamos en el primero
+                }
+                updateCarousel();
+            });
+            
+            nextButton.addEventListener('click', function() {
+                if (currentIndex < items.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0; // Volver al principio si estamos en el último
+                }
+                updateCarousel();
+            });
+            
+            // Carrusel automático
+            let carouselInterval = setInterval(function() {
+                if (currentIndex < items.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                updateCarousel();
+            }, 5000);
+            
+            // Detener la rotación automática cuando el usuario interactúa con el carrusel
+            carousel.addEventListener('mouseenter', function() {
+                clearInterval(carouselInterval);
+            });
+            
+            carousel.addEventListener('mouseleave', function() {
+                carouselInterval = setInterval(function() {
+                    if (currentIndex < items.length - 1) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0;
+                    }
+                    updateCarousel();
+                }, 5000);
             });
         });
     </script>
