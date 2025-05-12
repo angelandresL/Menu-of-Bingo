@@ -22,6 +22,7 @@
             text-align: center;
             padding: 1rem 0;
             position: relative;
+            z-index: 1;
         }
         .logo-container {
             margin-bottom: 1rem;
@@ -43,6 +44,8 @@
         .carousel-container {
             background-color: #222;
             padding: 20px 0;
+            z-index: 1;
+            position: relative;
         }
         .carousel {
             width: 75%;
@@ -85,40 +88,26 @@
         .carousel-control.next {
             right: 10px;
         }
-        /* Sidebar */
+        /* Contenido principal */
         .content-wrapper {
             display: flex;
             position: relative;
         }
+        /* Sidebar modificado */
         .sidebar {
-            width: 250px;
-            height: 100vh;
+            width: 200px;
             position: fixed;
-            top: 0;
+            top: calc(100px + 25vh + 40px); /* Altura de header + carousel + padding */
             left: 0;
             background-color: #333;
             overflow-y: auto;
-            transition: 0.3s;
-            padding-top: 60px;
+            height: calc(100vh - 100px - 25vh - 40px - 150px); /* Viewport height - header - carousel - padding - footer */
             z-index: 1000;
         }
-        .sidebar-toggle {
-            position: fixed;
-            left: 15px;
-            top: 15px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1001;
-            display: none;
-        }
         .sidebar a {
-            padding: 10px 15px;
+            padding: 8px 12px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 14px;
             color: #fff;
             display: block;
             transition: 0.3s;
@@ -127,30 +116,14 @@
             background-color: #e74c3c;
         }
         .sidebar a.subcategory-link {
-            padding-left: 30px;
-            font-size: 14px;
+            padding-left: 15px;
+            font-size: 12px;
             color: #ddd;
         }
-        .sidebar .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 25px;
-            color: #fff;
-            cursor: pointer;
-            display: none;
-        }
         .container {
-            margin-left: 250px;
+            margin-left: 200px;
             padding: 2rem 1rem;
-            width: calc(100% - 250px);
-            transition: margin-left 0.3s, width 0.3s;
-        }
-        .category-section {
-            display: none;
-        }
-        .category-section.active {
-            display: block;
+            width: calc(100% - 200px);
         }
         .subcategory {
             margin-bottom: 2rem;
@@ -284,8 +257,9 @@
             text-align: center;
             padding: 1.5rem 0;
             margin-top: 2rem;
-            margin-left: 250px;
-            transition: margin-left 0.3s;
+            margin-left: 200px;
+            position: relative;
+            z-index: 1;
         }
         .social-icons {
             margin-top: 1rem;
@@ -322,27 +296,22 @@
         }
         @media (max-width: 768px) {
             .sidebar {
-                width: 20%;
-                padding-top: 50px;
+                width: 150px;
+                top: calc(70px + 20vh + 20px);
+                height: calc(100vh - 70px - 20vh - 20px - 100px);
             }
             .sidebar a {
-                font-size: 12px;
-                padding: 8px 10px;
+                font-size: 11px;
+                padding: 6px 8px;
             }
             .sidebar a.subcategory-link {
-                padding-left: 15px;
+                padding-left: 12px;
                 font-size: 10px;
             }
             .container {
-                margin-left: 20%;
-                width: 80%;
+                margin-left: 150px;
+                width: calc(100% - 150px);
                 padding: 1rem 0.5rem;
-            }
-            .sidebar-toggle {
-                display: block;
-            }
-            .sidebar .close-btn {
-                display: block;
             }
             .carousel {
                 width: 90%;
@@ -356,7 +325,7 @@
                 margin-right: 0.5rem;
             }
             footer {
-                margin-left: 20%;
+                margin-left: 150px;
             }
         }
     </style>
@@ -394,167 +363,158 @@
     
     <div class="content-wrapper">
         <!-- Sidebar para navegación -->
-        <button class="sidebar-toggle" id="sidebarToggle">Menú ☰</button>
         <div class="sidebar" id="sidebar">
-            <span class="close-btn" id="closeSidebar">&times;</span>
-            <a href="#" class="category-link" data-category="carta-principal">CARTA PRINCIPAL</a>
             <a href="#entradas" class="subcategory-link">ENTRADAS</a>
             <a href="#ensaladas" class="subcategory-link">ENSALADAS</a>
             <a href="#pizzas" class="subcategory-link">PIZZAS</a>
             <a href="#pastas" class="subcategory-link">PASTAS</a>
             <a href="#platos-calientes" class="subcategory-link">PLATOS CALIENTES</a>
-            
-            <a href="#" class="category-link" data-category="bebidas">BEBIDAS</a>
-            <a href="#sin-alcohol" class="subcategory-link">SIN ALCOHOL</a>
+            <a href="#sin-alcohol" class="subcategory-link">BEBIDAS SIN ALCOHOL</a>
             <a href="#vinos" class="subcategory-link">VINOS</a>
             <a href="#cerveza" class="subcategory-link">CERVEZA</a>
             <a href="#cocteleria" class="subcategory-link">COCTELERÍA</a>
             <a href="#whisky" class="subcategory-link">WHISKY</a>
             <a href="#champagne" class="subcategory-link">CHAMPAGNE</a>
-            
-            <a href="#" class="category-link" data-category="postres">POSTRES</a>
             <a href="#budines" class="subcategory-link">BUDINES</a>
         </div>
         
         <div class="container">
-            <!-- CARTA PRINCIPAL SECTION -->
-            <div class="category-section active" id="carta-principal">
-                <div class="subcategory" id="entradas">
-                    <h2 class="subcategory-title">ENTRADAS</h2>
-                    <div class="menu-items">
-                        <div class="subcategory">
-                            <h3 class="third-level-title">EMPANADAS</h3>
-                            <div class="menu-items">
-                                <div class="menu-item">
-                                    <img src="img/empanada-jamon.jpg" alt="Empanada de Jamón y Queso" class="item-image">
-                                    <div class="item-details">
-                                        <div class="item-title">
-                                            <span>JAMÓN Y QUESO</span>
-                                            <span class="item-price">$2.500</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="menu-item">
-                                    <img src="img/empanada-carne.jpg" alt="Empanada de Carne" class="item-image">
-                                    <div class="item-details">
-                                        <div class="item-title">
-                                            <span>CARNE</span>
-                                            <span class="item-price">$2.500</span>
-                                        </div>
+            <!-- Todos los contenidos unidos -->
+            <div class="subcategory" id="entradas">
+                <h2 class="subcategory-title">ENTRADAS</h2>
+                <div class="menu-items">
+                    <div class="subcategory">
+                        <h3 class="third-level-title">EMPANADAS</h3>
+                        <div class="menu-items">
+                            <div class="menu-item">
+                                <img src="img/empanada-jamon.jpg" alt="Empanada de Jamón y Queso" class="item-image">
+                                <div class="item-details">
+                                    <div class="item-title">
+                                        <span>JAMÓN Y QUESO</span>
+                                        <span class="item-price">$2.500</span>
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                            <div class="menu-item">
+                                <img src="img/empanada-carne.jpg" alt="Empanada de Carne" class="item-image">
+                                <div class="item-details">
+                                    <div class="item-title">
+                                        <span>CARNE</span>
+                                        <span class="item-price">$2.500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            
+            <div class="subcategory" id="pizzas">
+                <h2 class="subcategory-title">PIZZAS</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="img/pizza-mozzarella.jpg" alt="Pizza Mozzarella" class="item-image">
+                        <div class="item-details">
+                            <div class="item-title">
+                                <span>MOZZARELLA</span>
+                                <div class="pizza-prices">
+                                    <span class="pizza-size">CHICA: <span class="item-price">$10.000</span></span>
+                                    <span class="pizza-size">GRANDE: <span class="item-price">$16.000</span></span>
+                                </div>
+                            </div>
+                            <p class="item-description">(MOZZARELLA, ACEITUNAS, ORÉGANO)</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="subcategory" id="pizzas">
-                    <h2 class="subcategory-title">PIZZAS</h2>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <img src="img/pizza-mozzarella.jpg" alt="Pizza Mozzarella" class="item-image">
-                            <div class="item-details">
-                                <div class="item-title">
-                                    <span>MOZZARELLA</span>
-                                    <div class="pizza-prices">
-                                        <span class="pizza-size">CHICA: <span class="item-price">$10.000</span></span>
-                                        <span class="pizza-size">GRANDE: <span class="item-price">$16.000</span></span>
-                                    </div>
-                                </div>
-                                <p class="item-description">(MOZZARELLA, ACEITUNAS, ORÉGANO)</p>
-                            </div>
+            </div>
+            
+            <div class="subcategory" id="pastas">
+                <h2 class="subcategory-title">PASTAS</h2>
+                <!-- Salsas section -->
+                <div class="salsas-section">
+                    <h3 class="salsas-title">SALSAS DISPONIBLES</h3>
+                    <div class="salsas-container">
+                        <div class="salsa-item">
+                            <div class="salsa-image"></div>
+                            <p class="salsa-name">Escarparo</p>
+                        </div>
+                        <div class="salsa-item">
+                            <div class="salsa-image"></div>
+                            <p class="salsa-name">Bologñesa</p>
+                        </div>
+                        <div class="salsa-item">
+                            <div class="salsa-image"></div>
+                            <p class="salsa-name">Cuatro Quesos</p>
+                        </div>
+                        <div class="salsa-item">
+                            <div class="salsa-image"></div>
+                            <p class="salsa-name">Mixta</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="subcategory" id="pastas">
-                    <h2 class="subcategory-title">PASTAS</h2>
-                    <!-- Salsas section -->
-                    <div class="salsas-section">
-                        <h3 class="salsas-title">SALSAS DISPONIBLES</h3>
-                        <div class="salsas-container">
-                            <div class="salsa-item">
-                                <div class="salsa-image"></div>
-                                <p class="salsa-name">Escarparo</p>
-                            </div>
-                            <div class="salsa-item">
-                                <div class="salsa-image"></div>
-                                <p class="salsa-name">Bologñesa</p>
-                            </div>
-                            <div class="salsa-item">
-                                <div class="salsa-image"></div>
-                                <p class="salsa-name">Cuatro Quesos</p>
-                            </div>
-                            <div class="salsa-item">
-                                <div class="salsa-image"></div>
-                                <p class="salsa-name">Mixta</p>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="img/sorrentinos.jpg" alt="Sorrentinos" class="item-image">
+                        <div class="item-details">
+                            <div class="item-title">
+                                <span>SORRENTINOS</span>
+                                <span class="item-price">$15.000</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="subcategory" id="platos-calientes">
+                <h2 class="subcategory-title">PLATOS CALIENTES</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="img/hamburguesa.jpg" alt="Hamburguesa" class="item-image">
+                        <div class="item-details">
+                            <div class="item-title">
+                                <span>HAMBURGUESA</span>
+                                <span class="item-price">$11.000</span>
+                            </div>
+                            <p class="item-description">(CARNE, CHEDDAR, HUEVO, LECHUGA, TOMATE, PEPINILLO)</p>
+                            <p class="item-description"><strong>*Incluye PAPA FRITAS</strong></p>
+                        </div>
+                    </div>          
                     
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <img src="img/sorrentinos.jpg" alt="Sorrentinos" class="item-image">
-                            <div class="item-details">
-                                <div class="item-title">
-                                    <span>SORRENTINOS</span>
-                                    <span class="item-price">$15.000</span>
+                    <div class="subcategory">
+                        <h3 class="third-level-title">PLANCHA</h3>
+                        <!-- Salsas section -->
+                        <div class="salsas-section">
+                            <h3 class="salsas-title">SALSAS DISPONIBLES</h3>
+                            <div class="salsas-container">
+                                <div class="salsa-item">
+                                    <div class="salsa-image"></div>
+                                    <p class="salsa-name">Verdeo</p>
+                                </div>
+                                <div class="salsa-item">
+                                    <div class="salsa-image"></div>
+                                    <p class="salsa-name">Mostaza</p>
+                                </div>
+                                <div class="salsa-item">
+                                    <div class="salsa-image"></div>
+                                    <p class="salsa-name">Cuatro Quesos</p>
+                                </div>
+                                <div class="salsa-item">
+                                    <div class="salsa-image"></div>
+                                    <p class="salsa-name">Champignon</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="subcategory" id="platos-calientes">
-                    <h2 class="subcategory-title">PLATOS CALIENTES</h2>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <img src="img/hamburguesa.jpg" alt="Hamburguesa" class="item-image">
-                            <div class="item-details">
-                                <div class="item-title">
-                                    <span>HAMBURGUESA</span>
-                                    <span class="item-price">$11.000</span>
-                                </div>
-                                <p class="item-description">(CARNE, CHEDDAR, HUEVO, LECHUGA, TOMATE, PEPINILLO)</p>
-                                <p class="item-description"><strong>*Incluye PAPA FRITAS</strong></p>
-                            </div>
-                        </div>          
                         
-                        <div class="subcategory">
-                            <h3 class="third-level-title">PLANCHA</h3>
-                            <!-- Salsas section -->
-                            <div class="salsas-section">
-                                <h3 class="salsas-title">SALSAS DISPONIBLES</h3>
-                                <div class="salsas-container">
-                                    <div class="salsa-item">
-                                        <div class="salsa-image"></div>
-                                        <p class="salsa-name">Verdeo</p>
+                        <div class="menu-items">
+                            <div class="menu-item">
+                                <img src="img/pollo-plancha.jpg" alt="Pollo a la Plancha" class="item-image">
+                                <div class="item-details">
+                                    <div class="item-title">
+                                        <span>POLLO A LA PLANCHA</span>
+                                        <span class="item-price">$12.000</span>
                                     </div>
-                                    <div class="salsa-item">
-                                        <div class="salsa-image"></div>
-                                        <p class="salsa-name">Mostaza</p>
-                                    </div>
-                                    <div class="salsa-item">
-                                        <div class="salsa-image"></div>
-                                        <p class="salsa-name">Cuatro Quesos</p>
-                                    </div>
-                                    <div class="salsa-item">
-                                        <div class="salsa-image"></div>
-                                        <p class="salsa-name">Champignon</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="menu-items">
-                                <div class="menu-item">
-                                    <img src="img/pollo-plancha.jpg" alt="Pollo a la Plancha" class="item-image">
-                                    <div class="item-details">
-                                        <div class="item-title">
-                                            <span>POLLO A LA PLANCHA</span>
-                                            <span class="item-price">$12.000</span>
-                                        </div>
-                                        <p class="item-description"><strong>*Incluye PAPA FRITAS o ENSALADA a elección</strong></p>
-                                    </div>
+                                    <p class="item-description"><strong>*Incluye PAPA FRITAS o ENSALADA a elección</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -562,32 +522,26 @@
                 </div>
             </div>
             
-            <!-- BEBIDAS SECTION -->
-            <div class="category-section" id="bebidas">
-                <div class="subcategory" id="sin-alcohol">
-                    <h2 class="subcategory-title">BEBIDAS SIN ALCOHOL</h2>
-                    <div class="menu-items">
-                        <div class="drink-item">
-                            <div class="drink-title">GASEOSAS</div>
-                            <div class="drink-price">$3.000</div>
-                        </div>
-                        <p class="drink-description">PEPSI, PEPSI ZERO, 7UP, 7UP ZERO, MIRINDA NARANJA, H2O LIMONETO, PASO DE LOS TOROS POMELO</p>
+            <div class="subcategory" id="sin-alcohol">
+                <h2 class="subcategory-title">BEBIDAS SIN ALCOHOL</h2>
+                <div class="menu-items">
+                    <div class="drink-item">
+                        <div class="drink-title">GASEOSAS</div>
+                        <div class="drink-price">$3.000</div>
                     </div>
+                    <p class="drink-description">PEPSI, PEPSI ZERO, 7UP, 7UP ZERO, MIRINDA NARANJA, H2O LIMONETO, PASO DE LOS TOROS POMELO</p>
                 </div>
             </div>
             
-            <!-- POSTRES SECTION -->
-            <div class="category-section" id="postres">
-                <div class="subcategory" id="budines">
-                    <h2 class="subcategory-title">BUDINES</h2>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <img src="img/budin-chocolate.jpg" alt="Budín de Chocolate" class="item-image">
-                            <div class="item-details">
-                                <div class="item-title">
-                                    <span>BUDÍN DE CHOCOLATE</span>
-                                    <span class="item-price">$5.800</span>
-                                </div>
+            <div class="subcategory" id="budines">
+                <h2 class="subcategory-title">BUDINES</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="img/budin-chocolate.jpg" alt="Budín de Chocolate" class="item-image">
+                        <div class="item-details">
+                            <div class="item-title">
+                                <span>BUDÍN DE CHOCOLATE</span>
+                                <span class="item-price">$5.800</span>
                             </div>
                         </div>
                     </div>
@@ -612,63 +566,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Referencias a elementos
-            const sidebar = document.getElementById('sidebar');
-            const closeSidebar = document.getElementById('closeSidebar');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const container = document.querySelector('.container');
-            const footer = document.getElementById('footer');
             const backToTopButton = document.getElementById('backToTop');
-            const categoryLinks = document.querySelectorAll('.sidebar .category-link');
-            const categorySections = document.querySelectorAll('.category-section');
             const subcategoryLinks = document.querySelectorAll('.sidebar .subcategory-link');
-            
-            // Sidebar toggling
-            sidebarToggle.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    sidebar.style.width = sidebar.style.width === '20%' ? '0' : '20%';
-                    container.style.marginLeft = sidebar.style.width === '0' ? '0' : '20%';
-                    container.style.width = sidebar.style.width === '0' ? '100%' : '80%';
-                    footer.style.marginLeft = sidebar.style.width === '0' ? '0' : '20%';
-                }
-            });
-            
-            closeSidebar.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    sidebar.style.width = '0';
-                    container.style.marginLeft = '0';
-                    container.style.width = '100%';
-                    footer.style.marginLeft = '0';
-                }
-            });
-            
-            // Category links
-            categoryLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Get the category ID
-                    const categoryId = this.getAttribute('data-category');
-                    
-                    // Hide all sections
-                    categorySections.forEach(section => section.classList.remove('active'));
-                    
-                    // Show the selected section
-                    const targetSection = document.getElementById(categoryId);
-                    targetSection.classList.add('active');
-                    
-                    // Set scroll position to top of the section container
-                    container.scrollTop = 0;
-                    window.scrollTo(0, 0);
-                    
-                    // Close sidebar on mobile
-                    if (window.innerWidth <= 768) {
-                        sidebar.style.width = '0';
-                        container.style.marginLeft = '0';
-                        container.style.width = '100%';
-                        footer.style.marginLeft = '0';
-                    }
-                });
-            });
             
             // Subcategory links
             subcategoryLinks.forEach(link => {
@@ -679,27 +578,10 @@
                     const subcategoryId = this.getAttribute('href').substring(1);
                     const subcategoryElement = document.getElementById(subcategoryId);
                     
-                    // Find the parent category section
-                    let parentSection = subcategoryElement.closest('.category-section');
-                    
-                    // Hide all sections and show the parent section
-                    categorySections.forEach(section => section.classList.remove('active'));
-                    parentSection.classList.add('active');
-                    
-                    // Scroll to the subcategory after a short delay
-                    setTimeout(() => {
-                        const yOffset = -20; // Offset to account for any fixed headers
-                        const y = subcategoryElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                        window.scrollTo({top: y, behavior: 'smooth'});
-                    }, 100);
-                    
-                    // Close sidebar on mobile
-                    if (window.innerWidth <= 768) {
-                        sidebar.style.width = '0';
-                        container.style.marginLeft = '0';
-                        container.style.width = '100%';
-                        footer.style.marginLeft = '0';
-                    }
+                    // Scroll to the subcategory
+                    const yOffset = -20; // Offset to account for any fixed headers
+                    const y = subcategoryElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({top: y, behavior: 'smooth'});
                 });
             });
             
@@ -771,9 +653,6 @@
                     updateCarousel();
                 }, 5000);
             });
-            
-            // Set first category as active by default
-            document.getElementById('carta-principal').classList.add('active');
         });
     </script>
 </body>
