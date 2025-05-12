@@ -11,13 +11,11 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-        
         body {
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
         }
-        
         header {
             background-color: #1a1a1a;
             color: #fff;
@@ -25,60 +23,49 @@
             padding: 1rem 0;
             position: relative;
         }
-        
         .logo-container {
             margin-bottom: 1rem;
         }
-        
         .logo {
             max-height: 100px;
             border-radius: 50%;
         }
-        
         h1 {
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
-        
         .subtitle {
             font-size: 1rem;
             font-style: italic;
             opacity: 0.8;
         }
-        
         /* Carrusel de recomendaciones */
-        .carousel {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            overflow: hidden;
-            position: relative;
+        .carousel-container {
             background-color: #222;
             padding: 20px 0;
         }
-        
+        .carousel {
+            width: 75%;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            max-height: 25vh;
+        }
         .carousel-inner {
             display: flex;
             transition: transform 0.5s ease;
+            aspect-ratio: 4/3;
         }
-        
         .carousel-item {
             min-width: 100%;
             text-align: center;
         }
-        
         .carousel-item img {
-            max-height: 300px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             border-radius: 8px;
         }
-        
-        .carousel-item h3 {
-            color: #fff;
-            margin-top: 10px;
-            font-size: 1.5rem;
-        }
-        
         .carousel-control {
             position: absolute;
             top: 50%;
@@ -92,64 +79,29 @@
             font-size: 1.2rem;
             z-index: 10;
         }
-        
         .carousel-control.prev {
             left: 10px;
         }
-        
         .carousel-control.next {
             right: 10px;
         }
-        
-        nav {
-            background-color: #333;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .main-categories {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            list-style: none;
-        }
-        
-        .main-categories li {
-            padding: 1rem;
-            cursor: pointer;
-            color: #fff;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-        
-        .main-categories li:hover, .main-categories li.active {
-            background-color: #e74c3c;
-        }
-        
         /* Sidebar */
         .content-wrapper {
             display: flex;
             position: relative;
         }
-        
         .sidebar {
-            width: 0;
-            height: 100%;
+            width: 250px;
+            height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
             background-color: #333;
-            overflow-x: hidden;
+            overflow-y: auto;
             transition: 0.3s;
             padding-top: 60px;
             z-index: 1000;
         }
-        
-        .sidebar.open {
-            width: 250px;
-        }
-        
         .sidebar-toggle {
             position: fixed;
             left: 15px;
@@ -161,8 +113,8 @@
             border-radius: 5px;
             cursor: pointer;
             z-index: 1001;
+            display: none;
         }
-        
         .sidebar a {
             padding: 10px 15px;
             text-decoration: none;
@@ -171,17 +123,14 @@
             display: block;
             transition: 0.3s;
         }
-        
         .sidebar a:hover {
             background-color: #e74c3c;
         }
-        
         .sidebar a.subcategory-link {
             padding-left: 30px;
             font-size: 14px;
             color: #ddd;
         }
-        
         .sidebar .close-btn {
             position: absolute;
             top: 10px;
@@ -189,25 +138,20 @@
             font-size: 25px;
             color: #fff;
             cursor: pointer;
+            display: none;
         }
-        
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-left: 250px;
             padding: 2rem 1rem;
-            transition: margin-left 0.3s;
-            flex: 1;
+            width: calc(100% - 250px);
+            transition: margin-left 0.3s, width 0.3s;
         }
-        
         .category-section {
             display: none;
-            margin-bottom: 2rem;
         }
-        
         .category-section.active {
             display: block;
         }
-        
         .subcategory {
             margin-bottom: 2rem;
             background-color: #fff;
@@ -215,14 +159,12 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-        
         .subcategory-title {
             background-color: #e74c3c;
             color: #fff;
             padding: 0.8rem 1.5rem;
             font-size: 1.3rem;
         }
-        
         /* Estilo para subcategorías de tercer nivel */
         .third-level-title {
             color: #333;
@@ -231,24 +173,20 @@
             font-weight: bold;
             border-bottom: 1px solid #eee;
         }
-        
         .menu-items {
             padding: 1rem;
         }
-        
         .menu-item {
             display: flex;
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid #eee;
         }
-        
         .menu-item:last-child {
             margin-bottom: 0;
             padding-bottom: 0;
             border-bottom: none;
         }
-        
         .item-image {
             width: 100px;
             height: 100px;
@@ -256,94 +194,108 @@
             border-radius: 8px;
             margin-right: 1rem;
         }
-        
         .item-details {
             flex: 1;
         }
-        
         .item-title {
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
             display: flex;
             justify-content: space-between;
         }
-        
         .item-price {
             font-weight: bold;
             color: #e74c3c;
         }
-        
         .item-description {
             font-size: 0.9rem;
             color: #666;
         }
-        
         .pizza-prices {
             display: flex;
             gap: 1rem;
         }
-        
         .pizza-size {
             font-size: 1.1rem;
         }
-        
+        /* Salsas section */
+        .salsas-section {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
         .salsas-title {
             font-weight: bold;
             font-size: 1.1rem;
-            margin-top: 0.5rem;
+            margin-bottom: 0.8rem;
             color: #e74c3c;
+            text-align: center;
         }
-        
-        .salsas-list {
-            font-size: 0.95rem;
-            font-style: italic;
-            color: #666;
+        .salsas-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
-        
-        /* Bebidas sin imágenes */
+        .salsa-item {
+            text-align: center;
+            width: 80px;
+        }
+        .salsa-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+            background-color: #ddd;
+        }
+        .salsa-name {
+            font-size: 0.8rem;
+            color: #333;
+        }
+        /* Bebidas items */
         .drink-item {
             margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
         .drink-title {
             font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 0.5rem;
         }
-        
         .drink-price {
             color: #e74c3c;
             font-weight: bold;
             font-size: 1.1rem;
+            text-align: right;
         }
-        
         .drink-description {
             font-size: 0.95rem;
             color: #666;
             margin-top: 0.3rem;
         }
-        
         footer {
             background-color: #1a1a1a;
             color: #fff;
             text-align: center;
             padding: 1.5rem 0;
             margin-top: 2rem;
+            margin-left: 250px;
+            transition: margin-left 0.3s;
         }
-        
         .social-icons {
             margin-top: 1rem;
         }
-        
         .social-icons a {
             color: #fff;
             margin: 0 0.5rem;
             font-size: 1.5rem;
             text-decoration: none;
         }
-        
         /* Botón para volver arriba */
         .back-to-top {
             position: fixed;
@@ -364,34 +316,47 @@
             transition: 0.3s;
             z-index: 1000;
         }
-        
         .back-to-top.visible {
             opacity: 1;
             visibility: visible;
         }
-        
         @media (max-width: 768px) {
-            .main-categories {
-                flex-direction: column;
+            .sidebar {
+                width: 20%;
+                padding-top: 50px;
             }
-            
-            .main-categories li {
-                padding: 0.8rem;
+            .sidebar a {
+                font-size: 12px;
+                padding: 8px 10px;
             }
-            
+            .sidebar a.subcategory-link {
+                padding-left: 15px;
+                font-size: 10px;
+            }
+            .container {
+                margin-left: 20%;
+                width: 80%;
+                padding: 1rem 0.5rem;
+            }
+            .sidebar-toggle {
+                display: block;
+            }
+            .sidebar .close-btn {
+                display: block;
+            }
+            .carousel {
+                width: 90%;
+            }
             .menu-item {
-                flex-direction: column;
+                flex-direction: row;
             }
-            
             .item-image {
-                width: 100%;
-                height: 200px;
-                margin-right: 0;
-                margin-bottom: 1rem;
+                width: 80px;
+                height: 80px;
+                margin-right: 0.5rem;
             }
-            
-            .sidebar.open {
-                width: 100%;
+            footer {
+                margin-left: 20%;
             }
         }
     </style>
@@ -406,39 +371,29 @@
     </header>
     
     <!-- Carrusel de platos recomendados -->
-    <div class="carousel">
-        <button class="carousel-control prev">&lt;</button>
-        <div class="carousel-inner">
-            <div class="carousel-item">
-                <img src="img/hamburguesa.jpg" alt="Hamburguesa Especial">
-                <h3>Hamburguesa Especial</h3>
+    <div class="carousel-container">
+        <div class="carousel">
+            <button class="carousel-control prev">&lt;</button>
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <img src="img/hamburguesa.jpg" alt="Hamburguesa Especial">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/pizza-mozzarella.jpg" alt="Pizza Italiana">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/sorrentinos.jpg" alt="Sorrentinos Caseros">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/ensalada-cesar.jpg" alt="Ensalada César">
+                </div>
             </div>
-            <div class="carousel-item">
-                <img src="img/pizza-mozzarella.jpg" alt="Pizza Mozzarella">
-                <h3>Pizza Italiana</h3>
-            </div>
-            <div class="carousel-item">
-                <img src="img/sorrentinos.jpg" alt="Sorrentinos">
-                <h3>Sorrentinos Caseros</h3>
-            </div>
-            <div class="carousel-item">
-                <img src="img/ensalada-cesar.jpg" alt="Ensalada César">
-                <h3>Ensalada César</h3>
-            </div>
+            <button class="carousel-control next">&gt;</button>
         </div>
-        <button class="carousel-control next">&gt;</button>
     </div>
     
-    <nav>
-        <ul class="main-categories" id="mainCategories">
-            <li data-category="carta-principal" class="active">CARTA PRINCIPAL</li>
-            <li data-category="bebidas">BEBIDAS</li>
-            <li data-category="postres">POSTRES</li>
-        </ul>
-    </nav>
-    
     <div class="content-wrapper">
-        <!-- Sidebar para navegación rápida -->
+        <!-- Sidebar para navegación -->
         <button class="sidebar-toggle" id="sidebarToggle">Menú ☰</button>
         <div class="sidebar" id="sidebar">
             <span class="close-btn" id="closeSidebar">&times;</span>
@@ -460,7 +415,7 @@
             <a href="#" class="category-link" data-category="postres">POSTRES</a>
             <a href="#budines" class="subcategory-link">BUDINES</a>
         </div>
-    
+        
         <div class="container">
             <!-- CARTA PRINCIPAL SECTION -->
             <div class="category-section active" id="carta-principal">
@@ -489,47 +444,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="subcategory">
-                            <h3 class="third-level-title">TABLA DE FIAMBRES</h3>
-                            <div class="menu-items">
-                                <div class="menu-item">
-                                    <img src="img/tabla-fiambres.jpg" alt="Tabla de Fiambres" class="item-image">
-                                    <div class="item-details">
-                                        <div class="item-title">
-                                            <span>PARA 2 PERSONAS</span>
-                                            <span class="item-price">$16.000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="menu-item">
-                                    <img src="img/tabla-fiambres-grande.jpg" alt="Tabla de Fiambres Grande" class="item-image">
-                                    <div class="item-details">
-                                        <div class="item-title">
-                                            <span>PARA 4 PERSONAS</span>
-                                            <span class="item-price">$29.000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="subcategory" id="ensaladas">
-                    <h2 class="subcategory-title">ENSALADAS</h2>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <img src="img/ensalada-cesar.jpg" alt="Ensalada César" class="item-image">
-                            <div class="item-details">
-                                <div class="item-title">
-                                    <span>ENSALADA CÉSAR</span>
-                                    <span class="item-price">$8.000</span>
-                                </div>
-                                <p class="item-description">(LECHUGA, POLLO, QUESO RALLADO, CHERRY, SALSA CÉSAR Y CRUTONES)</p>
-                            </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
                 
@@ -554,6 +469,29 @@
                 
                 <div class="subcategory" id="pastas">
                     <h2 class="subcategory-title">PASTAS</h2>
+                    <!-- Salsas section -->
+                    <div class="salsas-section">
+                        <h3 class="salsas-title">SALSAS DISPONIBLES</h3>
+                        <div class="salsas-container">
+                            <div class="salsa-item">
+                                <div class="salsa-image"></div>
+                                <p class="salsa-name">Escarparo</p>
+                            </div>
+                            <div class="salsa-item">
+                                <div class="salsa-image"></div>
+                                <p class="salsa-name">Bologñesa</p>
+                            </div>
+                            <div class="salsa-item">
+                                <div class="salsa-image"></div>
+                                <p class="salsa-name">Cuatro Quesos</p>
+                            </div>
+                            <div class="salsa-item">
+                                <div class="salsa-image"></div>
+                                <p class="salsa-name">Mixta</p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="menu-items">
                         <div class="menu-item">
                             <img src="img/sorrentinos.jpg" alt="Sorrentinos" class="item-image">
@@ -562,8 +500,6 @@
                                     <span>SORRENTINOS</span>
                                     <span class="item-price">$15.000</span>
                                 </div>
-                                <p class="salsas-title">Salsas disponibles:</p>
-                                <p class="salsas-list">Escarparo, Bologñesa, Cuatro Quesos, Mixta</p>
                             </div>
                         </div>
                     </div>
@@ -583,8 +519,32 @@
                                 <p class="item-description"><strong>*Incluye PAPA FRITAS</strong></p>
                             </div>
                         </div>          
+                        
                         <div class="subcategory">
                             <h3 class="third-level-title">PLANCHA</h3>
+                            <!-- Salsas section -->
+                            <div class="salsas-section">
+                                <h3 class="salsas-title">SALSAS DISPONIBLES</h3>
+                                <div class="salsas-container">
+                                    <div class="salsa-item">
+                                        <div class="salsa-image"></div>
+                                        <p class="salsa-name">Verdeo</p>
+                                    </div>
+                                    <div class="salsa-item">
+                                        <div class="salsa-image"></div>
+                                        <p class="salsa-name">Mostaza</p>
+                                    </div>
+                                    <div class="salsa-item">
+                                        <div class="salsa-image"></div>
+                                        <p class="salsa-name">Cuatro Quesos</p>
+                                    </div>
+                                    <div class="salsa-item">
+                                        <div class="salsa-image"></div>
+                                        <p class="salsa-name">Champignon</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="menu-items">
                                 <div class="menu-item">
                                     <img src="img/pollo-plancha.jpg" alt="Pollo a la Plancha" class="item-image">
@@ -594,8 +554,6 @@
                                             <span class="item-price">$12.000</span>
                                         </div>
                                         <p class="item-description"><strong>*Incluye PAPA FRITAS o ENSALADA a elección</strong></p>
-                                        <p class="salsas-title">Salsas disponibles:</p>
-                                        <p class="salsas-list">Verdeo, Mostaza, Cuatro Quesos, Champignon</p>
                                     </div>
                                 </div>
                             </div>
@@ -610,122 +568,10 @@
                     <h2 class="subcategory-title">BEBIDAS SIN ALCOHOL</h2>
                     <div class="menu-items">
                         <div class="drink-item">
-                            <div class="drink-title">
-                                AGUA ECO SIN GAS
-                                <span class="drink-price">$3.000</span>
-                            </div>
+                            <div class="drink-title">GASEOSAS</div>
+                            <div class="drink-price">$3.000</div>
                         </div>
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                AGUA ECO CON GAS
-                                <span class="drink-price">$3.000</span>
-                            </div>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                GASEOSAS
-                                <span class="drink-price">$3.000</span>
-                            </div>
-                            <p class="drink-description">PEPSI, PEPSI ZERO, 7UP, 7UP ZERO, MIRINDA NARANJA, H2O LIMONETO, PASO DE LOS TOROS POMELO</p>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                TÓNICA LATA
-                                <span class="drink-price">$1.500</span>
-                            </div>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                LEVITE
-                                <span class="drink-price">$3.500</span>
-                            </div>
-                            <p class="drink-description">NARANJA / POMELO / MANZANA / PERA</p>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                SPEED
-                                <span class="drink-price">$3.500</span>
-                            </div>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                JUGO DE NARANJA
-                                <span class="drink-price">$4.000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="subcategory" id="vinos">
-                    <h2 class="subcategory-title">VINOS</h2>
-                    <div class="menu-items">
-                        <div class="drink-item">
-                            <div class="drink-title">VINOS TINTOS</div>
-                            <p class="drink-description">LOPEZ CHICO - <span class="drink-price">$6.000</span></p>
-                            <p class="drink-description">VASCO VIEJO CHICO - <span class="drink-price">$5.500</span></p>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">VINOS BLANCOS</div>
-                            <p class="drink-description">TRAFUL CHICO - <span class="drink-price">$5.500</span></p>
-                            <p class="drink-description">VASCO VIEJO CHICO - <span class="drink-price">$5.500</span></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="subcategory" id="cerveza">
-                    <h2 class="subcategory-title">CERVEZA</h2>
-                    <div class="menu-items">
-                        <div class="drink-item">
-                            <div class="drink-title">CERVEZAS LITRO</div>
-                            <p class="drink-description">QUILMES - <span class="drink-price">$8.000</span></p>
-                            <p class="drink-description">BRAHMA - <span class="drink-price">$8.000</span></p>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">CERVEZAS LATA/PORRON</div>
-                            <p class="drink-description">QUILMES LATA - <span class="drink-price">$4.500</span></p>
-                            <p class="drink-description">QUILMES LATA STOUT - <span class="drink-price">$4.500</span></p>
-                        </div>
-                        <div class="drink-item">
-                            <div class="drink-title">CERVEZAS TIRADAS</div>
-                            <p class="drink-description">QUILMES CHOP - <span class="drink-price">$5.000</span></p>
-                            <p class="drink-description">STELLA CHOP - <span class="drink-price">$6.000</span></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="subcategory" id="cocteleria">
-                    <h2 class="subcategory-title">COCTELERÍA</h2>
-                    <div class="menu-items">
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                FERNET COLA
-                                <span class="drink-price">$6.000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="subcategory" id="whisky">
-                    <h2 class="subcategory-title">WHISKY (MEDIDA)</h2>
-                    <div class="menu-items">
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                BLENDERS
-                                <span class="drink-price">$4.000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="subcategory" id="champagne">
-                    <h2 class="subcategory-title">CHAMPAGNE</h2>
-                    <div class="menu-items">
-                        <div class="drink-item">
-                            <div class="drink-title">
-                                NOVECENTO
-                                <span class="drink-price">$9.000</span>
-                            </div>
-                        </div>
+                        <p class="drink-description">PEPSI, PEPSI ZERO, 7UP, 7UP ZERO, MIRINDA NARANJA, H2O LIMONETO, PASO DE LOS TOROS POMELO</p>
                     </div>
                 </div>
             </div>
@@ -753,7 +599,7 @@
     <!-- Botón para volver arriba -->
     <a href="#" class="back-to-top" id="backToTop">↑</a>
     
-    <footer>
+    <footer id="footer">
         <p>© 2025 Restaurante Nombre - Todos los derechos reservados</p>
         <p>Calle Principal, 123 - Ciudad</p>
         <p>Teléfono: 123-456-789</p>
@@ -762,109 +608,102 @@
             <a href="#" target="_blank">Instagram</a>
         </div>
     </footer>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Category switching functionality
-            const categoryTabs = document.querySelectorAll('#mainCategories li');
-            const categorySections = document.querySelectorAll('.category-section');
-            
-            categoryTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remove active class from all tabs and sections
-                    categoryTabs.forEach(t => t.classList.remove('active'));
-                    categorySections.forEach(s => s.classList.remove('active'));
-                    
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-                    
-                    // Show corresponding section
-                    const categoryId = this.getAttribute('data-category');
-                    document.getElementById(categoryId).classList.add('active');
-                    
-                    // Scroll to top when changing categories
-                    window.scrollTo({
-                        top: document.querySelector('nav').offsetTop,
-                        behavior: 'smooth'
-                    });
-                });
-            });
-            
-            // Sidebar functionality
-            const sidebarToggle = document.getElementById('sidebarToggle');
+            // Referencias a elementos
             const sidebar = document.getElementById('sidebar');
             const closeSidebar = document.getElementById('closeSidebar');
-            
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('open');
-            });
-closeSidebar.addEventListener('click', function() {
-                sidebar.classList.remove('open');
-            });
-            
-            // Links categorías en sidebar
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const container = document.querySelector('.container');
+            const footer = document.getElementById('footer');
+            const backToTopButton = document.getElementById('backToTop');
             const categoryLinks = document.querySelectorAll('.sidebar .category-link');
+            const categorySections = document.querySelectorAll('.category-section');
+            const subcategoryLinks = document.querySelectorAll('.sidebar .subcategory-link');
+            
+            // Sidebar toggling
+            sidebarToggle.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    sidebar.style.width = sidebar.style.width === '20%' ? '0' : '20%';
+                    container.style.marginLeft = sidebar.style.width === '0' ? '0' : '20%';
+                    container.style.width = sidebar.style.width === '0' ? '100%' : '80%';
+                    footer.style.marginLeft = sidebar.style.width === '0' ? '0' : '20%';
+                }
+            });
+            
+            closeSidebar.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    sidebar.style.width = '0';
+                    container.style.marginLeft = '0';
+                    container.style.width = '100%';
+                    footer.style.marginLeft = '0';
+                }
+            });
+            
+            // Category links
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Activar categoría correspondiente
+                    // Get the category ID
                     const categoryId = this.getAttribute('data-category');
                     
-                    // Actualizar tabs activos
-                    categoryTabs.forEach(t => t.classList.remove('active'));
-                    document.querySelector(`[data-category="${categoryId}"]`).classList.add('active');
+                    // Hide all sections
+                    categorySections.forEach(section => section.classList.remove('active'));
                     
-                    // Mostrar sección correspondiente
-                    categorySections.forEach(s => s.classList.remove('active'));
-                    document.getElementById(categoryId).classList.add('active');
+                    // Show the selected section
+                    const targetSection = document.getElementById(categoryId);
+                    targetSection.classList.add('active');
                     
-                    // Cerrar sidebar
-                    sidebar.classList.remove('open');
+                    // Set scroll position to top of the section container
+                    container.scrollTop = 0;
+                    window.scrollTo(0, 0);
                     
-                    // Scroll al inicio de la sección
-                    window.scrollTo({
-                        top: document.querySelector('nav').offsetTop,
-                        behavior: 'smooth'
-                    });
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 768) {
+                        sidebar.style.width = '0';
+                        container.style.marginLeft = '0';
+                        container.style.width = '100%';
+                        footer.style.marginLeft = '0';
+                    }
                 });
             });
             
-            // Links subcategorías en sidebar
-            const subcategoryLinks = document.querySelectorAll('.sidebar .subcategory-link');
+            // Subcategory links
             subcategoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Extraer ID de subcategoría del href
+                    // Get the subcategory ID
                     const subcategoryId = this.getAttribute('href').substring(1);
                     const subcategoryElement = document.getElementById(subcategoryId);
                     
-                    // Determinar la categoría principal que contiene esta subcategoría
+                    // Find the parent category section
                     let parentSection = subcategoryElement.closest('.category-section');
-                    let categoryId = parentSection.id;
                     
-                    // Actualizar tabs activos
-                    categoryTabs.forEach(t => t.classList.remove('active'));
-                    document.querySelector(`[data-category="${categoryId}"]`).classList.add('active');
-                    
-                    // Mostrar sección correspondiente
-                    categorySections.forEach(s => s.classList.remove('active'));
+                    // Hide all sections and show the parent section
+                    categorySections.forEach(section => section.classList.remove('active'));
                     parentSection.classList.add('active');
                     
-                    // Cerrar sidebar
-                    sidebar.classList.remove('open');
-                    
-                    // Desplazamiento suave hasta la subcategoría
+                    // Scroll to the subcategory after a short delay
                     setTimeout(() => {
-                        subcategoryElement.scrollIntoView({ behavior: 'smooth' });
+                        const yOffset = -20; // Offset to account for any fixed headers
+                        const y = subcategoryElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        window.scrollTo({top: y, behavior: 'smooth'});
                     }, 100);
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 768) {
+                        sidebar.style.width = '0';
+                        container.style.marginLeft = '0';
+                        container.style.width = '100%';
+                        footer.style.marginLeft = '0';
+                    }
                 });
             });
             
-            // Funcionalidad del botón Volver Arriba
-            const backToTopButton = document.getElementById('backToTop');
-            
+            // Back to top button
             window.addEventListener('scroll', function() {
                 if (window.pageYOffset > 300) {
                     backToTopButton.classList.add('visible');
@@ -875,13 +714,10 @@ closeSidebar.addEventListener('click', function() {
             
             backToTopButton.addEventListener('click', function(e) {
                 e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({top: 0, behavior: 'smooth'});
             });
             
-            // Carrusel de recomendaciones
+            // Carrusel functionality
             const carousel = document.querySelector('.carousel-inner');
             const items = document.querySelectorAll('.carousel-item');
             const prevButton = document.querySelector('.carousel-control.prev');
@@ -896,7 +732,7 @@ closeSidebar.addEventListener('click', function() {
                 if (currentIndex > 0) {
                     currentIndex--;
                 } else {
-                    currentIndex = items.length - 1; // Ir al último si estamos en el primero
+                    currentIndex = items.length - 1;
                 }
                 updateCarousel();
             });
@@ -905,7 +741,7 @@ closeSidebar.addEventListener('click', function() {
                 if (currentIndex < items.length - 1) {
                     currentIndex++;
                 } else {
-                    currentIndex = 0; // Volver al principio si estamos en el último
+                    currentIndex = 0;
                 }
                 updateCarousel();
             });
@@ -920,7 +756,7 @@ closeSidebar.addEventListener('click', function() {
                 updateCarousel();
             }, 5000);
             
-            // Detener la rotación automática cuando el usuario interactúa con el carrusel
+            // Detener rotación automática con interacción
             carousel.addEventListener('mouseenter', function() {
                 clearInterval(carouselInterval);
             });
@@ -935,6 +771,9 @@ closeSidebar.addEventListener('click', function() {
                     updateCarousel();
                 }, 5000);
             });
+            
+            // Set first category as active by default
+            document.getElementById('carta-principal').classList.add('active');
         });
     </script>
 </body>
